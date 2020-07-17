@@ -34,14 +34,13 @@ public class NoteController {
 		HttpStatus status = HttpStatus.CREATED;
     	 Note saved = noteService.addNote(note);
         return new ResponseEntity<>(convertToNoteDto(saved), status);
-		
-	}
+}
 	
 	@DeleteMapping("/delete")
 	public ResponseEntity<NotesDto> deleteNote(@RequestBody NotesDto note){
 		HttpStatus status = HttpStatus.OK;
-		noteService.deleteNote(note);
-		return new ResponseEntity<>(note,status);
+		NotesDto notedto = noteService.deleteNote(note);
+		return new ResponseEntity<>(notedto,status);
 	}
 	
 	@GetMapping("/note/{id}")

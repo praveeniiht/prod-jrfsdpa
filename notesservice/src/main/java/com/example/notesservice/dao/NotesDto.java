@@ -24,5 +24,5 @@ public class NotesDto {
 	@NotNull
 	@Length(min=5,max=15)
 	private String status;
-
+	
 }

@@ -39,9 +39,10 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public void deleteNote(NotesDto note) {
+	public NotesDto deleteNote(NotesDto note) {
 		// TODO Auto-generated method stub
 		noteRepository.delete(convertToNote(note));
+		return note;
 
 	}
 
