@@ -1,13 +1,11 @@
-package com.example.notesservice.dao;
+package com.example.notesservice.dto;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
-@NoArgsConstructor
 public class NotesDto {
 	@NotNull
 	@Length(min=5,max=10)

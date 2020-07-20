@@ -8,11 +8,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication(scanBasePackages="com.example.notesservice")
 @EnableMongoRepositories(basePackages ="com.example.notesservice.repo")
 @EntityScan("com.example.notesservice.model")
-//@EnableEurekaClient
 public class NotesserviceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NotesserviceApplication.class, args);
 	}
-
 }

@@ -6,7 +6,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.example.notesservice.dao.NotesDto;
+
+import com.example.notesservice.dto.NotesDto;
 import com.example.utils.MasterData;
 import static com.example.utils.MasterData.getNotesDto;
 import static com.example.utils.TestUtils.yakshaAssert;

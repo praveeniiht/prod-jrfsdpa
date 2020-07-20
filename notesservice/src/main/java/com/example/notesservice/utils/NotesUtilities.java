@@ -3,7 +3,7 @@ package com.example.notesservice.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.notesservice.dao.NotesDto;
+import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
 import com.google.common.base.Optional;
 

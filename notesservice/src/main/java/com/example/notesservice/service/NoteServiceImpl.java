@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.notesservice.dao.NotesDto;
+import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
 import com.example.notesservice.repo.NoteRepository;
 import static com.example.notesservice.utils.NotesUtilities.convertToNote;
@@ -26,16 +26,25 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public Optional<Note> findById(String id) {
+	public NotesDto findById(String id) {
 		// TODO Auto-generated method stub
-		return  noteRepository.findById(id);
+		List<Note>list = noteRepository.findAll();
+		List<NotesDto> dtolist = convertToNotesDtoList(list);
+		NotesDto temp=null;
+		for(NotesDto dtonote:dtolist) {
+			if(dtonote.getId().equals(id)){
+				temp=dtonote;
+				break;
+			}
+		}
+		return  temp;
 		
 	}
 
 	@Override
-	public Note addNote(NotesDto note) {
-		// TODO Auto-generated method stub
-		return noteRepository.save(convertToNote(note));
+	public NotesDto addNote(NotesDto note) {
+		Note dto = noteRepository.save(convertToNote(note));
+		return convertToNoteDto(dto);
 	}
 
 	@Override
@@ -56,24 +65,7 @@ public class NoteServiceImpl implements NoteService {
 		return convertToNotesDtoList(notes);
 	}
 
-	@Override
-	public List<NotesDto> findAllByAuthor(String author) {
-		// TODO Auto-generated method stub
-		List<Note> list = noteRepository.findAll();
-		List<Note> notes = list.stream()
-							.filter(n->n.getAuthor().equals(author))
-							.collect(Collectors.toList());
-		return convertToNotesDtoList(notes);
-	}
+	
 
-	@Override
-	public List<NotesDto> findAllByTitle(String title) {
-		// TODO Auto-generated method stub
-		List<Note> list = noteRepository.findAll();
-		List<Note> notes = list.stream()
-							.filter(n->n.getTitle().equals(title))
-							.collect(Collectors.toList());
-		return convertToNotesDtoList(notes);
-	}
-
+	
 }

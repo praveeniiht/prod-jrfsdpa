@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.notesservice.dao.NotesDto;
+import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
 import com.example.notesservice.service.NoteService;
 import static com.example.notesservice.utils.NotesUtilities.convertToNoteDto;
@@ -23,18 +23,20 @@ public class NoteController {
 	
 	@Autowired
 	private NoteService noteService;
-	
+
 	@GetMapping("/all")
-	public List<NotesDto> findAll(){
-		return noteService.findAll();
+	public ResponseEntity<List<NotesDto>> findAll(){
+		 HttpStatus httpStatus = HttpStatus.OK; 
+		 List<NotesDto> dtolist= noteService.findAll(); 
+		 return new ResponseEntity<>(dtolist,httpStatus);
 	}
 	
 	@PostMapping("/add")
 	public ResponseEntity<NotesDto> addNote(@RequestBody NotesDto note){
 		HttpStatus status = HttpStatus.CREATED;
-    	 Note saved = noteService.addNote(note);
-        return new ResponseEntity<>(convertToNoteDto(saved), status);
-}
+    	NotesDto saved = noteService.addNote(note);
+        return new ResponseEntity<>(saved, status);
+    }
 	
 	@DeleteMapping("/delete")
 	public ResponseEntity<NotesDto> deleteNote(@RequestBody NotesDto note){
@@ -44,24 +46,17 @@ public class NoteController {
 	}
 	
 	@GetMapping("/note/{id}")
-	public Optional<Note> findById(@PathVariable("id") String id){
-			return  noteService.findById(id);
+	public ResponseEntity<NotesDto> findById(@PathVariable("id") String id){
+		HttpStatus status = HttpStatus.OK;
+		NotesDto notesdto=   noteService.findById(id);
+		return new ResponseEntity<>(notesdto,status);
 	}
 	
 	@GetMapping("/{status}")
-	public List<NotesDto> findAllByStatus(@PathVariable("status") String status){
-		return noteService.findAllByStatus(status);
+	public ResponseEntity<List<NotesDto>> findAllByStatus(@PathVariable("status") String status){
+		HttpStatus httpStatus = HttpStatus.OK;
+		List<NotesDto> dtolist = noteService.findAllByStatus(status);
+		return new ResponseEntity<>(dtolist,httpStatus);
 	}
-	
-	@GetMapping("/author/{author}")
-	public List<NotesDto> findAllByAuthor(@PathVariable("author") String author){
-		return noteService.findAllByAuthor(author);
-	}
-	
-	@GetMapping("note/title/{title}")
-	public List<NotesDto> findAllByTitle(@PathVariable("title") String title){
-		return noteService.findAllByTitle(title);
-	}
-
 	
 }

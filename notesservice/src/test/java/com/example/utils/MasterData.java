@@ -2,7 +2,7 @@ package com.example.utils;
 
 import java.io.IOException;
 
-import com.example.notesservice.dao.NotesDto;
+import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
