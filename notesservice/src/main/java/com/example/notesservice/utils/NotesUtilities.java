@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
-import com.google.common.base.Optional;
+
 
 public class NotesUtilities {
 	public static List<NotesDto> convertToNotesDtoList(List<Note> list){
