@@ -118,7 +118,7 @@ class NoteControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$[0].status", is("Done")))
-		.andExpect(jsonPath("$[0].status", is("Done")));
+		.andExpect(jsonPath("$[1].status", is("Done")));
        
 		yakshaAssert(currentTest(), actions!=null? true : false,businessTestFile);
 		

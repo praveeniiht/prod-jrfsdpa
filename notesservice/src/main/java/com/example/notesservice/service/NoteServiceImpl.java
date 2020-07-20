@@ -67,8 +67,4 @@ public class NoteServiceImpl implements NoteService {
 						 			.collect(Collectors.toList()); 
 		return convertToNotesDtoList(notes);
 	}
-
-	
-
-	
 }

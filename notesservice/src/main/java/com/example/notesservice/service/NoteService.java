@@ -7,7 +7,6 @@ import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.model.Note;
 
 public interface NoteService {
-	
 	public List<NotesDto> findAll();
 	public NotesDto findById(String id);
 	public NotesDto addNote(NotesDto note);

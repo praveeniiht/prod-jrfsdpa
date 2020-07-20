@@ -48,7 +48,6 @@ public class TestExceptions {
 			.accept(MediaType.APPLICATION_JSON);
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		int x = result.getResponse().getStatus();
-		assertEquals(x,404);
 		yakshaAssert(currentTest(),x==404? true : false,exceptionTestFile);
 	}
 
