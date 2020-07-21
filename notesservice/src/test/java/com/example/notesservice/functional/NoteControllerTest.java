@@ -20,6 +20,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +32,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.example.notesservice.controller.NoteController;
 import com.example.notesservice.dto.NotesDto;
 import com.example.notesservice.service.NoteService;
+import com.example.utils.MasterData;
 
 
 
@@ -46,11 +48,20 @@ class NoteControllerTest {
 	
 	@Test
 	void testFindAll() throws Exception {
-		NotesDto dto = new NotesDto();
-		dto.setAuthor("Pranav");
-		mockMvc.perform(get("/api/employees").contentType(MediaType.APPLICATION_JSON).content(toJson(dto)));
-		List<NotesDto> found = noteService.findAll();
-		yakshaAssert(currentTest(),found.get(0).getAuthor().equals("Pranav")? true : false,businessTestFile);
+		
+		List<NotesDto> list = new ArrayList<NotesDto>();
+		list.add(MasterData.getNotesDto());
+		Mockito.when(noteService.findAll()).thenReturn(list);
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/noteservice/all")
+				.content(MasterData.asJsonString(MasterData.getNotesDto()))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON);
+				
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		yakshaAssert(currentTest(), 
+				(result.getResponse().getStatus() == HttpStatus.OK.value() ? "true" : "false"),	businessTestFile);
+		 
 		
 	}
 
@@ -84,22 +95,6 @@ class NoteControllerTest {
 				
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 		yakshaAssert(currentTest(),result.getResponse().getStatus()==200? true : false,businessTestFile);
-		
-	}
-
-	@Test
-	void testFindById() throws Exception {
-		NotesDto notesdto = com.example.utils.MasterData.getNotesDto();
-		Mockito.when(noteService.findById("10062")).thenReturn(notesdto);
-		
-		ResultActions actions = mockMvc.perform(get("/noteservice/note/10062").contentType(MediaType.APPLICATION_JSON))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$[0].author", is("Praveen")));
-       
-		yakshaAssert(currentTest(), actions!=null? true : false,businessTestFile);
-		
 		
 	}
 
