@@ -1,4 +1,0 @@
-
-testTitleLength=false
-testDescriptionLength=false
-testAuthorNameLength=false
