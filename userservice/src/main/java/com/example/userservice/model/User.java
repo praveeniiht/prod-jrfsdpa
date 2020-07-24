@@ -11,17 +11,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Document(collection="Users")
+
+@Document(collection="user")
 @Data
-@NoArgsConstructor
 public class User {
 	@Id
-	@Column
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private String id;
-	@Column
-	private String username;
-	@Column
+	private String author;
+	
 	private String password;
+	
+	private String email;
+	
+	private String mobile;
+	
 }

@@ -1,4 +1,6 @@
-package com.example.notesservice.dto;
+package com.example.userservice.dto;
+
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -7,9 +9,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class NotesDto {
+	
 	@NotNull
-	@Length(min=5,max=10)
-	private String id;
+	private int id;
 	@NotNull
 	@Length(min=5,max=15)
 	private String title;
@@ -22,5 +24,6 @@ public class NotesDto {
 	@NotNull
 	@Length(min=5,max=15)
 	private String status;
-	
+	private int noOfLikes;
+
 }

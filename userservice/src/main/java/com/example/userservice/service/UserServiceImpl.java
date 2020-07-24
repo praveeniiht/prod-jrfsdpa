@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.userservice.dto.UserDto;
-import com.example.userservice.model.Note;
 import com.example.userservice.model.User;
 import com.example.userservice.repo.UserRepository;
 import static com.example.userservice.utils.UserUtilities.converToUser;
@@ -41,18 +40,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean login(UserDto user) {
+	public UserDto update(UserDto user) {
+		userRepository.save(converToUser(user));
+		return user;
+	}
+	@Override
+	public UserDto login(UserDto user) {
 		// TODO Auto-generated method stub
-		boolean found=false;
+		UserDto found=null;
 		List<User> users = userRepository.findAll();
 		for(User usr:users) {
-			if(usr.getUsername().equals(user.getUsername()) && usr.getPassword().equals(user.getPassword())){
-				found=true;
+			if(usr.getAuthor().equals(user.getAuthor()) && usr.getPassword().equals(user.getPassword())){
+				found= convertToUserDto(usr);
 				break;
 			}
 		}
 		return found;
+		
+
+		
 	}
+
+	
 
 	
 }
